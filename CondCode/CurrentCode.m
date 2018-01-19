@@ -19,6 +19,9 @@ C.c = 299792458;                    % speed of light
 nx = 100;
 ny = 50;
 
+
+%3400
+
 Acond = 1;
 Bcond = 10;
 

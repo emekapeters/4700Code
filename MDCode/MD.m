@@ -41,9 +41,9 @@ ScaleF = 0;
 PlotPosOnly = 0;
 
 % Simulation initiallization
-InitThree
+%InitThree
 % InitBlock
-% InitCirc
+ InitCirc
 % InitBlock0
 % InitBlock0FD
 % InitVStream
@@ -51,6 +51,7 @@ InitThree
 % InitHCPBlob
 % InitVStreamHCP
 % InitHCPMeltSim
+ %InitEllipse
 
 MaxX = max(x) * 1.5;
 MinX = min(x) * 1.5;
