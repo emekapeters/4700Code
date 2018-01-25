@@ -48,8 +48,12 @@ for i = 1:15
     xPosPrev = xPos;
     yPosPrev = yPos;
     
-    xPos = xPosPrev + velx .* dt;
-    yPos = yPosPrev + vely .* dt;
+    
+    
+    xPos = xPosPrev + velx .* i;
+    yPos = yPosPrev + vely .* i;
+    
+    
     
     plot (xPos, yPos, '.');
     pause(1)
