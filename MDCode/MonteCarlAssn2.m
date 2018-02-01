@@ -29,22 +29,40 @@ effMass = 0.26 * C.m_0;
 
 vTherm = sqrt((C.kb * 300) / effMass);
 
+stdv = vTherm/(sqrt(2));
+
 dt = 7.5 * 10 ^ -15;
 
 wid = 200 * 10 ^ -9;
 len = 200 * 10 ^ -9;
 
-size = 10;
+size = 1000;
 
 xPos = rand(1, size) .* wid;
 yPos = rand(1, size) .* len;
 
-angs = rand(1, size) .* 2 .* pi;
+velx = randn(1, size) .* stdv;
+vely = randn(1, size) .* stdv;
+vrms = sqrt((velx .^ 2) + (vely .^ 2));
 
-velx = cos(angs) .* vTherm;
-vely = sin(angs) .* vTherm;
+pscat = 1 - (exp((-1 * dt) / (0.2 * 10 ^ -12)));
+tempr = 300;
 
 for i = 1:1000
+    
+    is = pscat > rand(1,size);
+%     if pscat > rand
+    %velx(is) = randn(1,sum(is)).* stdv;
+    velx(is) = randn .* stdv;
+    %vely(is) = randn(1,sum(is)).* stdv;
+    vely(is) = randn .* stdv;
+
+    vrms = sqrt((velx .^ 2) + (vely .^ 2));
+%     end
+    
+    
+    
+    
     xPos(xPos >= wid) = xPos(xPos >= wid) - wid;
     xPos(xPos <= 0) = xPos(xPos <= 0) + wid;
     
@@ -57,17 +75,20 @@ for i = 1:1000
     xPosPrev = xPos;
     yPosPrev = yPos;
     
-    
-    
     xPos = xPosPrev + (velx .* dt);
     yPos = yPosPrev + (vely .* dt);
     
+    %vrms = sqrt((velx .^ 2) + (vely .^ 2));
+    tempr = (sqrt(2)*(mean(vrms) ^ 2) * effMass) / C.kb;
     
-    
+
     plot (xPos, yPos, '.');
+    xlabel("x-Position");
+    ylabel("y-Position");
+    title(["Average Temperature = " num2str(tempr)]);
     xlim([0 wid]);
     ylim([0 len]);
-    pause(1)
+    pause(0.01)
     hold on
 end
 

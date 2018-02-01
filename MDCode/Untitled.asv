@@ -1,0 +1,47 @@
+G = zeros(10, 10);
+soln = 0;
+
+G(:, 1) = 1;
+G(10, :) = 0;
+
+noitr = 100;
+
+for kk = 1:noitr
+
+    for i = 1:10
+        for j = 1:10
+            if (i == 1)
+                if j == 1
+                    G(:,j) = 0;
+                end 
+                
+                if (j == 10)
+                    G(:,j) = 1;
+                    G(i,j) = (G(i+1, j) + G(i, j-1))/2;
+                else 
+                    G(i,j) = (G(i+1, j) + G(i-1, j) + G(i, j-1))/3;
+                end
+                
+            elseif (i == 10)
+                    if (j == 10)
+                        G(i,j) = (G(i-1, j) + G(i, j-1))/2;
+                    else 
+                        G(i,j) = (G(i-1, j) + G(i, j+1) + G(i, j-1))/3;
+                    end
+            else 
+                G(i,j) = (G(i+1, j) + G(i-1, j) + G(i, j+1) + G(i, j-1))/4;
+            end
+        end
+        
+        surf(G)
+        pause(0.1)
+        
+    end
+    
+end 
+
+        
+         
+        
+        
+        
